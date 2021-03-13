@@ -1,0 +1,21 @@
+name: Main
+on:
+  pull_request:
+    branchs:
+      -master
+
+jops:
+  flutter_test:
+    name: Run flutter test and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/chechout@vs
+      - uses: actions/setup-java@v1
+        with:
+          java-version:"12.x"
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
