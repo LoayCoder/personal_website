@@ -19,8 +19,8 @@ jops:
       - uses: subosito/flutter-action@v1
         with:
           channel: "dev"
-      - name: Build Website
-        - run:
+      name: Build Website
+         run:
                config --enable-web
                flutter pub get
                flutter build web --release
