@@ -1,35 +1,31 @@
-name: CI
-on:
-  pull_request:
-    branchs:
-      -master
-
-jops:
+name: Build & Deploy Website
+on: push
+jobs:
   hosting:
     name: Deploy Website
     runs-on: ubuntu-latest
-  flutter_test:
-    name: Run flutter test and analyze
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/chechout@vs
-      - uses: actions/setup-java@v1
-        with:
-          java-version:"12.x"
+      # Checkout Repository
+      - uses: actions/checkout@v1
+
+      # Install Flutter command
       - uses: subosito/flutter-action@v1
         with:
-          channel: "dev"
-      name: Build Website
-         run:
-               config --enable-web
-               flutter pub get
-               flutter build web --release
-        - working-directory: ./
+          channel: 'dev'
+
+      # Build Website
+      - name: Build Website
+        run: |
+          flutter config --enable-web
+          flutter pub get
+          flutter build web --release
+        working-directory: ./
+
+      # Deploy Firebase Hosting
       - name: Deploy Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:mywebsite-6aaa9
-          env:
-            FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
-            PROJECT_PATH: ./
-
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: ./
