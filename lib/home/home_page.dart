@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
                   lineSize: 1,
                   text: 'Under Construction',
                   borderColors: Colors.transparent,
-                  textColors: Colors.white,
+                  textColors: Colors.red,
                 ),
               ),
               SliverPadding(

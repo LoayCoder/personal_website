@@ -1,4 +1,4 @@
-name: Main
+name: CI
 on:
   pull_request:
     branchs:
@@ -33,7 +33,3 @@ jops:
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
             PROJECT_PATH: ./
 
-
-
-      - run: flutter analyze
-      - run: flutter test
